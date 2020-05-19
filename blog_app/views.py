@@ -11,19 +11,6 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.core.mail import BadHeaderError, send_mail
 
-# Create your views here.
-# def index(request):
-#     query = request.GET.get('q')
-#     if query:
-#         posts = Post.objects.all().order_by('-created_at')
-#         posts = posts.filter(
-#         Q(title__icontains=query)|
-#         Q(user__username__icontains=query)
-#         ).distinct()
-#     else:
-#         posts = Post.objects.all().order_by('-created_at')  
-#     return render(request, 'blog_app/index.html', {'posts': posts, 'query': query})
-
 def is_valid_q(q):
     return q != '' and q is not None
 
