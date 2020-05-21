@@ -4,6 +4,10 @@ html {
   padding-bottom: 120px;
 }
 
+.same-top{
+  margin-top: 80px!important;
+}
+
 footer{
   width: 100%;
   background-color: #f3f3f3;
@@ -11,4 +15,9 @@ footer{
   padding: 17px 0;
   position: absolute;
   bottom: 0;
+}
+
+/* base.html */
+.space{
+  margin: 150px 0!important;
 }

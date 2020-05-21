@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}   
-
-  <!-- Page Header -->
+<!-- Page Header -->
   <header class="masthead" style="background-image: url('/media/img/contact-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
@@ -19,38 +18,36 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
-        <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
-        <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
-        <form name="sentMessage" id="contactForm" novalidate>
+        <form action="{% url 'blog_app:contact' %}" method="POST" id="contactForm" novalidate>
+          {% csrf_token %}
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
-              <label>お名前</label>
-              <input type="text" class="form-control" placeholder="お名前" id="name" required data-validation-required-message="Please enter your name.">
+              <label for="id_name">お名前</label>
+              <input type="text" name="name" maxlength="50" class="form-control" placeholder="お名前" id="name" required data-validation-required-message="名前を入力してください">
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
-              <label>メールアドレス</label>
-              <input type="email" class="form-control" placeholder="メールアドレス" id="email" required data-validation-required-message="Please enter your email address.">
-              <p class="help-block text-danger"></p>
-            </div>
-          </div>
-          <div class="control-group">
-            <div class="form-group col-xs-12 floating-label-form-group controls">
-              <label>電話番号</label>
-              <input type="tel" class="form-control" placeholder="電話番号" id="phone" required data-validation-required-message="Please enter your phone number.">
+              <label for="id_email">メールアドレス</label>
+              <input type="email" name="email" class="form-control" placeholder="メールアドレス" id="id_email" required data-validation-required-message="メールアドレスを入力してください">
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
-              <label>内容</label>
-              <textarea rows="5" class="form-control" placeholder="内容" id="message" required data-validation-required-message="Please enter a message."></textarea>
+              <label for="id_message">内容</label>
+              <textarea name="message" cols="40" rows="6" id="id_message" class="form-control" placeholder="内容" required data-validation-required-message="メッセージを入力してください"></textarea>
               <p class="help-block text-danger"></p>
             </div>
           </div>
+          <div class="form-check my-3">
+            <input class="form-check-input" type="checkbox" name="myself" id="id_myself">
+            <label class="form-check-label text-secondary" for="id_myself">
+              内容を受け取る
+            </label>
+          </div>
+         
           <br>
           <div id="success"></div>
           <div class="form-group">
@@ -67,23 +64,23 @@
 
 
 
-
-<!-- <h1 class="mt-5 pt-4 text-center">お問い合わせ</h1>
+<!-- <div class="container">
+<h1 class="mt-5 pt-4 text-center">お問い合わせ</h1>
 <form action="{% url 'blog_app:contact' %}" method="POST">
   {% csrf_token %}
-  <label for="id_subject" class="sr-only">お名前</label>
-  <input class="form-control mb-3" name="subject" maxlength="50" required="" id="id_subject" type="text" placeholder="お名前">
+  <label for="id_name" class="sr-only">お名前</label>
+  <input class="form-control mb-3" name="name" maxlength="50" required="" id="id_name" type="text" placeholder="お名前">
 
-  <label for="id_sender" class="sr-only">メールアドレス</label>
-  <input type="email" name="sender" required="" id="id_sender" placeholder="メールアドレス" class="form-control mb-3">
+  <label for="id_email" class="sr-only">メールアドレス</label>
+  <input type="email" name="email" required="" id="id_email" placeholder="メールアドレス" class="form-control mb-3">
 
   <label for="id_message" class="sr-only">メッセージ:</label>
   <textarea name="message" cols="40" rows="10" required="" id="id_message" placeholder="メッセージ" class="form-control mb-3"></textarea>
 
-  <label for="id_myself" class="text-secondary pr-3 mb-3">確認内容を受け取る:</label>
+  <label for="id_myself" class="text-secondary pr-3 mb-3">内容を受け取る:</label>
   <input class="form-check-input" type="checkbox" name="myself" id="id_myself">
 
 <button type="submit" class="btn btn-block btn-outline-success">送信する</button>
-</form> -->
-
+</form>
+</div> -->
 {% endblock %}

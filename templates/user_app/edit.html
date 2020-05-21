@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% block content %}
-<h1 class="mt-5 pt-4 text-center">{{user.username}}を編集</h1>
+<h1 class="mt-5 pt-5 text-center">{{user.username}}を編集</h1>
+<div class="container">
   <form class="form-signin" method="post">
     {% csrf_token %}
 
@@ -22,5 +23,5 @@
   {% if user == request.user %}
     <a href="{% url 'user_app:delete' user_id=user.id %}"><button type="button" class="btn btn-outline-danger">退会する</button></a> 
   {% endif %}
-
+</div>
 {% endblock %}

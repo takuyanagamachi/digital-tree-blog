@@ -80,15 +80,15 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-           subject = form.cleaned_data['subject']
+           name = form.cleaned_data['name']
            message = form.cleaned_data['message']
-           sender = form.cleaned_data['sender']
+           email = form.cleaned_data['email']
            myself = form.cleaned_data['myself']
            recipients = [settings.EMAIL_HOST_USER]
            if myself:
-                recipients.append(sender)
+                recipients.append(email)
            try:
-                send_mail(subject, message, sender, recipients)
+                send_mail(name, message, email, recipients)
            except BadHeaderError:
                 return HttpResponse('無効なヘッダーが見つかりました。')
            return redirect('blog_app:done')

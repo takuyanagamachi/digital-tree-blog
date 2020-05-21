@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}   
-<h1 class="text-center my-5">{{ user.username }}のページ</h1>
+<!-- <h1 class="mt-5 pt-5 text-center my-5">{{ user.username }}のページ</h1> 
 {% if request.user == user %}
   <div class="text-center"><a href="{% url 'user_app:edit' user_id=user.id %}"><button type="button" class="btn btn-outline-info">{{user}} 編集</button></a></div>
 {% endif %}
@@ -26,5 +26,37 @@
   </div>
   
   {% endfor %}
+  </div> -->
+
+  <!-- Main Content -->
+<div class="container">
+  <h1 class="mt-5 pt-5 text-center my-5">{{ user.username }}のページ</h1> 
+{% if request.user == user %}
+  <div class="text-center"><a href="{% url 'user_app:edit' user_id=user.id %}"><button type="button" class="btn btn-outline-info">{{user}} 編集</button></a></div>
+{% endif %}
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      {% for post in posts%}
+      <div class="post-preview">
+        <a href="{% url 'blog_app:detail' post_id=post.id %}">
+          <h2 class="post-title">
+            {{post.title|truncatechars:10 | linebreaksbr}}</h2>
+          <h3 class="post-subtitle">
+            {{ post.text|truncatechars:17 }}
+          </h3>
+        </a>
+        <p class="post-meta">Posted by
+          <a href="{% url 'user_app:detail' post.user.id %}">{{post.user.username}}</a>
+          {{ post.created_at }}</p>
+      </div>
+      <hr>
+      {% endfor %}
+      <!-- Pager -->
+      <!-- <div class="clearfix">
+        <a class="btn btn-primary float-right" href="#">ページナイト &rarr;</a>
+      </div> -->
+    </div>
   </div>
+</div>
+
 {% endblock %}
