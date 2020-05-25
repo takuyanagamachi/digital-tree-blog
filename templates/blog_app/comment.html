@@ -1,0 +1,6 @@
+<form method="POST" action="{% url 'blog_app:detail' post_id=post.id %}" class="form-inline fixed-bottom mb-0">
+  {% csrf_token %}
+  <button type="submit" class="btn-sm btn-outline-secondary col-1">投稿</button>
+  <label class="sr-only" for="id_text">コメント</label>
+  <textarea name="text" class="form-control-sm col-11"　placeholder="コメントする..." required="true" id="id_text"></textarea>
+</form>

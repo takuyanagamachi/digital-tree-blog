@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Tag
-from .forms import PostAddForm, ContactForm
+from .models import Post, Tag, Comment
+from django.contrib.auth.models import User
+from .forms import PostAddForm, ContactForm, CmtForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
@@ -40,8 +41,20 @@ def index(request):
 
 
 def detail(request, post_id):
-      post = get_object_or_404(Post, id=post_id)
-      return render(request, 'blog_app/detail.html', {'post': post})
+    post = get_object_or_404(Post, id=post_id)
+    comments = Comment.objects.filter(post=post).order_by()
+    if request.method == "POST":
+        form = CmtForm(request.POST or None)
+        if form.is_valid():
+            text = request.POST.get('text')
+            comment = Comment.objects.create(post=post, user=request.user, text=text)
+            comment.save()
+            return redirect('blog_app:detail', post_id=post.id)
+    else:
+        form = CmtForm()
+    return render(request, 'blog_app/detail.html', {'post': post, 'form': form, 'comments': comments})
+   
+
 
 @login_required
 def add(request):
@@ -72,6 +85,13 @@ def edit(request, post_id):
 def delete(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     post.delete()
+    return redirect('blog_app:index')
+
+#コメント削除
+@login_required
+def comment_delete(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    comment.delete()
     return redirect('blog_app:index')
 
 
