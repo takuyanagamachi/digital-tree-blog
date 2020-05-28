@@ -30,7 +30,15 @@
         </a>
         <p class="post-meta">Posted by
           <a href="{% url 'user_app:detail' post.user.id %}">{{post.user.username}}</a>
-          {{ post.created_at }}</p>
+          <!-- いいね -->
+          {{ post.created_at|date:"Y年n月j日" }}
+          {% if post.like.count >= 1 or post.comments.count >= 1 %}
+          コメント({{post.comments.count}})
+          <i class="fas fa-heart like-red"></i> {{post.like.count}}
+          {% else %}
+          コメント(0)
+          <i class="far fa-heart"></i></p>
+          {% endif %}
       </div>
       <hr>
       {% endfor %}

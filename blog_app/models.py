@@ -17,6 +17,7 @@ class Post(models.Model):
     created_at = models.DateTimeField('投稿日', default=timezone.now)
     tag = models.ForeignKey(Tag, verbose_name = 'タグ', on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    like = models.ManyToManyField(User, related_name='like', blank=True)
     def __str__(self):
         return self.title
 
@@ -27,3 +28,4 @@ class Comment(models.Model):
     created_at = models.DateTimeField('投稿日', default=timezone.now)
     def __str__(self):
         return self.text
+      

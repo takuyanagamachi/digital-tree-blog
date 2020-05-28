@@ -12,4 +12,6 @@ urlpatterns = [
     path('contact/done/', views.done, name='done'),
     #コメント削除
     path('comment/<int:comment_id>/', views.comment_delete, name='comment_delete'),
+    path('like/', views.like, name='like'),
+
 ]

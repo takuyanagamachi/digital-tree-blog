@@ -17,6 +17,16 @@ footer{
   bottom: 0;
 }
 
+/* detail.html */
+.like-red{
+  color: red;
+}
+
+
+button:focus {
+	outline:0;
+}
+
 /* base.html */
 .space{
   margin: 150px 0!important;

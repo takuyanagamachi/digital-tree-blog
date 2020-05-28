@@ -43,6 +43,9 @@ def index(request):
 def detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     comments = Comment.objects.filter(post=post).order_by()
+    liked = False
+    if post.like.filter(id=request.user.id).exists():
+        liked = True
     if request.method == "POST":
         form = CmtForm(request.POST or None)
         if form.is_valid():
@@ -52,7 +55,7 @@ def detail(request, post_id):
             return redirect('blog_app:detail', post_id=post.id)
     else:
         form = CmtForm()
-    return render(request, 'blog_app/detail.html', {'post': post, 'form': form, 'comments': comments})
+    return render(request, 'blog_app/detail.html', {'post': post, 'form': form, 'comments': comments, 'liked': liked})
    
 
 
@@ -118,3 +121,15 @@ def contact(request):
 
 def done(request):
     return render(request, 'blog_app/done.html')
+
+def like(request):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    liked = False
+    if post.like.filter(id=request.user.id).exists():
+        post.like.remove(request.user)
+        liked = False
+    else:    
+        post.like.add(request.user)
+        liked = True
+
+    return redirect('blog_app:detail', post_id=post.id)
